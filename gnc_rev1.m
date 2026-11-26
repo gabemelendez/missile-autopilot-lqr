@@ -83,7 +83,7 @@ dT2 = 0.25;
 %missile parameters designed from control results (the mission design)
 %using metric units
 
-R = 6371e3; %earth radius , not perfect sphere but wtvr
+R_earth = 6371e3; %earth radius , not perfect sphere but wtvr
 vel = 1021.08; %speed of missile taken from paper
 m2f = 3.2811; %meters to feet conversion for future calcs
 
@@ -115,7 +115,7 @@ du = u2-u1;
 %haversine formula (great-circle distance on a spherical Earth)
 a = sin(dl/2)^2 + cos(l1)*cos(l2)*sin(du/2)^2;  %square of half the chord length between the points
 c = 2*atan2(sqrt(a), sqrt(1-a));                %central angle between the points (rad)
-d = R*c;                                        %ground distance along Earth's surface (m)
+d = R_earth*c;                                        %ground distance along Earth's surface (m)
 
 %slant range from Pythagoras (adds the height difference)
 dZ = elev_tar - elev_init;                      %height change (m), negative = descending
@@ -135,4 +135,5 @@ fprintf('ground range:      %.2f km\n',  d/1000);
 fprintf('slant range:       %.2f km\n',  r/1000);
 fprintf('azimuth (yaw):     %.1f deg\n', yaw/d2r);
 fprintf('flight path angle: %.1f deg\n', FPA_INIT/d2r);
+
 
